@@ -1,0 +1,19 @@
+service: default
+runtime: python38
+entrypoint: gunicorn -b :$PORT main:server
+
+manual_scaling:
+  instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 2
+
+# For css styling of website
+handlers:
+- url: /assets
+  static_dir: assets
+
+- url: /.*
+  script: main.py
